@@ -1,0 +1,167 @@
+@import "tailwindcss";
+
+/*
+ * Design tokens. Brand guidelines Rev 03 (Sep 2026) palette — "five colours, no sixth":
+ *   Black #202020 · Carbon Grey #353535 · Foster White #ECECEC · Vintage Yellow #E9BE5F · Olive Green #808000
+ * Panels are tonal steps of Black/Carbon Grey. ok/warn/bad/cool are functional status colours
+ * from the v1 spec §16 (a tracker needs them); they are never used for brand surfaces.
+ */
+:root,
+[data-theme="dark"] {
+  --gold: #e9be5f; /* Vintage Yellow */
+  --gdim: #c8a84b;
+  --olive: #808000; /* Olive Green */
+  --carbon: #202020; /* Black — the default ground */
+  --panel: #262626;
+  --panel2: #2c2c2c;
+  --panel3: #1c1c1c;
+  --line: #353535; /* Carbon Grey */
+  --line2: #444444;
+  --ink: #ececec; /* Foster White */
+  --grey: #9a9a9a; /* secondary text: 5:1 on every panel */
+  --grey2: #5f5f5f; /* lines and disabled icons only, never text (2.6:1) */
+  --ok: #5ca96f;
+  --warn: #d9913f;
+  --bad: #e8786b; /* readable as small text: 4.9:1+ on every panel */
+  --cool: #7fa8c9;
+  --bar: #1c1c1c;
+  --hatch-a: #7a2f28;
+  --hatch-b: #5d241e;
+  /* Text on gold and status fills (buttons, pills). */
+  --on-accent: #1e1e1e;
+  /* Neutral fills: pills with no status, conveyor tracks and their task bars (Floor Station). */
+  --chip: #4a4a4a;
+  --track: #1f1f1f;
+  --track-line: #2a2a2a;
+  --task-todo: #343434;
+  --task-todo-line: #4a4a4a;
+  --task-done: #2a3a2f;
+  --task-done-line: #35503d;
+  --task-done-ink: #a8d8b5;
+  --task-blocked: #3a2422;
+  --planned-bar: #8c8c8c;
+  --hold: #9a8fb0;
+  --after-shift: rgba(0, 0, 0, 0.4);
+  color-scheme: dark;
+}
+
+/*
+ * Light theme (Joey, 2026-10-17): warm-grey ground, white cards, dark ink, a darker gold that reads on white, and
+ * status colours deepened to stay readable as text. Every text colour here meets WCAG AA (4.5:1) on every panel,
+ * and white text meets it on the gold and status fills. The TV displays never use it.
+ */
+[data-theme="light"] {
+  --gold: #86620f;
+  --gdim: #6e5010;
+  --olive: #66660a;
+  --carbon: #f3f1ec;
+  --panel: #ffffff;
+  --panel2: #f7f5f1;
+  --panel3: #ebe7e0;
+  --line: #ddd8cf;
+  --line2: #c8c1b5;
+  --ink: #1f1f1f;
+  --grey: #5c5750;
+  --grey2: #a8a29a;
+  --ok: #2b7542;
+  --warn: #965011;
+  --bad: #b0392d;
+  --cool: #2c6491;
+  --bar: #e4e0d8;
+  --hatch-a: #e7b3ac;
+  --hatch-b: #f2cdc8;
+  --on-accent: #ffffff;
+  --chip: #e3ded5;
+  --track: #ece8e1;
+  --track-line: #ddd7cd;
+  --task-todo: #e6e1d8;
+  --task-todo-line: #cfc8bb;
+  --task-done: #e2efe5;
+  --task-done-line: #a9cdb3;
+  --task-done-ink: #245c35;
+  --task-blocked: #f6e1de;
+  --planned-bar: #a8a29a;
+  --hold: #6b5d8a;
+  --after-shift: rgba(32, 32, 32, 0.1);
+  color-scheme: light;
+}
+
+@theme inline {
+  --color-gold: var(--gold);
+  --color-gdim: var(--gdim);
+  --color-olive: var(--olive);
+  --color-carbon: var(--carbon);
+  --color-panel: var(--panel);
+  --color-panel2: var(--panel2);
+  --color-panel3: var(--panel3);
+  --color-line: var(--line);
+  --color-line2: var(--line2);
+  --color-ink: var(--ink);
+  --color-grey: var(--grey);
+  --color-grey2: var(--grey2);
+  --color-ok: var(--ok);
+  --color-warn: var(--warn);
+  --color-bad: var(--bad);
+  --color-cool: var(--cool);
+  --color-bar: var(--bar);
+  --color-on-accent: var(--on-accent);
+  --color-chip: var(--chip);
+  /* Text on department and build colours (user-chosen, light): dark in both themes. */
+  --color-on-colour: #1e1e1e;
+  --font-sans: Helvetica, var(--font-body), Arial, sans-serif;
+  --font-display: var(--font-michroma), Helvetica, sans-serif;
+  --font-mono: var(--font-plex-mono), ui-monospace, monospace;
+  --radius-card: 10px;
+  --breakpoint-sm: 640px;
+}
+
+body {
+  background: var(--carbon);
+  color: var(--ink);
+  font-family: Helvetica, var(--font-body), Arial, sans-serif;
+  line-height: 1.55;
+}
+
+/* Primary tier (Broche): headlines, titles, section markers. Uppercase only, weight through scale and tracking — never bold. */
+.display {
+  font-family: var(--font-michroma), Helvetica, sans-serif;
+  font-weight: 400;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  line-height: 1.15;
+}
+
+/* Eyebrow: Broche 14/14, 0.24em, Vintage Yellow. */
+.eyebrow {
+  font-family: var(--font-michroma), Helvetica, sans-serif;
+  font-size: 0.7rem;
+  letter-spacing: 0.24em;
+  text-transform: uppercase;
+  color: var(--gold);
+}
+
+/* Technical tier (Plex Mono): uppercase labels for specs and table heads. */
+.label {
+  font-family: var(--font-plex-mono), ui-monospace, monospace;
+  font-size: 0.7rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--grey);
+}
+
+/* Logo wordmark: the white artwork on the dark theme, the black artwork on the light theme. */
+.wm-on-light { display: none; }
+[data-theme="light"] .wm-on-dark { display: none; }
+[data-theme="light"] .wm-on-light { display: inline; }
+
+/* Forecast overrun (§16). */
+.hatch-overrun {
+  background: repeating-linear-gradient(45deg, var(--hatch-a) 0 4px, var(--hatch-b) 4px 8px);
+}
+
+/* Grid children may shrink below their content (wide tables scroll inside their own box, never the page). */
+main .grid > * { min-width: 0; }
+
+/* TV v2 motion (respecting reduced motion through motion-safe:). */
+@keyframes fadein { from { opacity: 0; transform: translateY(0.4rem); } to { opacity: 1; transform: none; } }
+@keyframes blink { 50% { opacity: 0.25; } }
